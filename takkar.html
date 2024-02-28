@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&family=Teko:wght@300..700&display=swap'); 
+    
+    body {
+    font-family: "Teko", sans-serif;;
+    margin: 0;
+    padding: 0;
+   background-color: #fff;
+    }
+
+.container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 2px;
+  background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Add this line */
+    font-size: x-large;
+}
+
+h1 {
+    text-align: center;
+}
+
+.meme-preview {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+.meme-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.top-text,
+.bottom-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.top-text {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bottom-text {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form {
+    margin-top: 20px;
+    font-size: large;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="file"],
+input[type="text"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: large;
+}
+
+button:hover {
+    background-color:#0056b3;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons-container button {
+    width: 48%;
+}
+
+.saved-meme {
+    margin-top: 20px;
+}
+#feedbackPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        max-width: 400px;
+        width: 90%;
+    }
+    /* Media Query for responsiveness */
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .buttons-container button {
+        width: 100%;
+    }
+
+    .saved-meme {
+        max-width: 90%;
+    }
+    #feedbackPopup {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+    #feedbackPopup h2 {
+        margin-top: 0;
+    }
+
+    #feedbackTextarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px;
+        resize: vertical;
+    }
+
+    #starRating {
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #submitFeedbackBtn,
+    #cancelFeedbackBtn {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #submitFeedbackBtn {
+        background-color: #007bff;
+        color: white;
+    }
+
+    #submitFeedbackBtn:hover {
+        background-color: #0056b3;
+    }
+
+    #cancelFeedbackBtn {
+        background-color: #ccc;
+        color: #333;
+    }
+
+    #cancelFeedbackBtn:hover {
+        background-color: #bbb;
+    }
+</style>
+<body>
+    <img src="/logo-png.png" width="250px" height="80px" alt="No Internet" >
+    <div id="feedbackPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); z-index: 999;">
+        <h2>Feedback and Rating</h2>
+        <p>Please provide your feedback and star rating:</p>
+        <textarea id="feedbackTextarea" style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
+        <select id="starRating" style="margin-bottom: 10px;">
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+        </select>
+        <button id="submitFeedbackBtn">Submit</button>
+        <button id="cancelFeedbackBtn">Cancel</button>
+    </div>
+
+    <div class="container">
+        <h1>Customise your memes</h1>
+        <div class="meme-preview" id="memePreview">
+            <img id="memeImg" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAlAMBEQACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABwIDBAUGAQj/xABKEAABAwICBQYGDggHAQAAAAABAAIDBAUGEQcSITFBEyJRYXGBQpGhorHRFDI0UlRVcnN0gpSywdIVFyNDRWKT0yQlNUSSwvA2/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAQFAQIDBv/EADQRAAEDAgMFBQcFAQEAAAAAAAABAgMEERIhMQUTQVGhFDJigeEVM2FxkbHBIlLR8PFCI//aAAwDAQACEQMRAD8AnFAEAQBAeZoDTXfFFptRMdRUh8w/cxDWd39HepMNJNNm1MiLNWQw5OXM4+4aQqyUltupI4G8HynXce7YB5VZR7LYnfW5WSbVevcbY0NTiO9VWfLXKoyPBhDB5oCmNpIG6NQhvq536vX7fY18lRUSnOWomkP88jj6SuyMamiHBXuXVS2HOac2uIPSDktrGEVU0MqC6XGnI5CvqmZbspnejNc3Qxu1an0OjZpW91ym3osa3ymIElQyoZ72aMekZFRpNnwP0S3yJMe0Khmq3+fodNa9IFDMQy4wPpXe/aeUZ6Mx4lAl2ZI3ONbk+LakbspEt1Oupaunq4WzUszJY3bnMOYKrnNcxbOSylmx7Xpiat0LwOa1Nj1AEAQBAEAQBAYV1ulJaqY1FbMI4xsHEuPQBxK6RRPldhYhylmZC3E9SNr/AIzr7mXQ0hdSUp2ZMPPeOs8OwK8p6COPN2a9CiqNoSS5MyTqcxkrArwsAIAgCAIAgCAyrdcay2T8tQ1D4X8dU7Hdo3Fc5ImSpheh1jlfE7ExbEiYaxrT3Fzaa4BlNVHIB2fMkPV0HqVJU0Dov1MzTqXdNtFsv6ZMl6HXA5gKvLI9QBAEAQBAajEV9prJR8tPz5XZiKEHa8+rpK709O6d1k04qR6mpbA2668EImut0q7vWGqrH6ztzWD2rB0AL0kMLIW4W/6eammfM7E//DCXQ5BAEAQBAEAQBAEAQAoDtcHYxNM6O33aQug3RVDjtZ0Bx6OvgqqsoEd/6Rpny/gtqKvVto5dOC/ySOCHDMKlLw9QBAEBhXe5QWqhlrKk5MjGwDe48AOsrpFE6V6MacppWwsV7iHLvc6i71z6urObne1aDsY3g0L00MLYWYW/6eXmmdM/G7/DCXU5BAEAQBAEAQBAEAQBAEAQyd9gDEjnatorpMyBlTyOO/8AkP4eJU+0KREvKzzLjZ1Wvun+X8HfqoLkIDw7kBFWPL2bnczSwP8A8LSktGR2PfxP4eNegoKfdx4l1X7HndoVO9kwJon3OYU8rwgCAIAgCAIADmgCAIAgCAIAgKmOdG9r43Fr2kFrgdoPSioipZTKKqZoTDhS8C9WmOd2XLs5kwHBw49+9eZq4NxKrU04Hp6So38aO48TdKMSjS4uuhtViqJ4zlM79nF8o8e4ZnuUmkh30qN4EWsm3MKuTXgQ4Ny9MeXCAIAgCAIAgNphmzSX26exWawhiydUyjwG+9H8x4ePhth1dUkDbJqTaOkWd117p1mN8LM9iNr7XCGGnjDZImDYYwNhHWB5OxQaCsVHbuRdfuTq+iRW7yNNOHw9CPwropAgCAIAgCAIDpMBXT9H31kL3ZQ1f7N2e4O8E+PZ3qDtCHeRXTVP6pP2fNu5rLo7L+CWM1509GRtpNrjLcKagaebAwyOHS527xAeVXmy47MV/MotqyXe1nI4wK0KoIAgCAIAgKYo6iur4bbbo+UrJ3ZNHBg4ud1AbVHqKhImrzJNPTrK5EJpwzY6bD9rjoqbnH200p3yyHe4/wDuheckkdI5XKelijbG3C02pGYIXM6EV43w6bVV+y6Vn+DnduH7t54dh4eJX9BVb1uB3eTqeer6TdOxt7q9Dl1YFcEAQBAEAQHoc5jg5ji17SC1w4HpSyLqZJwtNWLhbKasbumja/sOW3yrykrN3IrOSnrIn7yNH80IjxTUeysSXGXPMcsWDsaA38F6OkbhganwPN1b8c71+P2NUpBGCAIAgCAwrhXCnbqMyMp83tXGWVGZJqd4olfmuhk4Qxa3DBnlZao6uqnPOqJKgtOr70DVPaquaJZdVLWCVsSaHd4V0k1F9v1NbX2qKBs2tnIKguIyaTu1R0KLLTIxiuuS4qnG7DY6rGF8kw9YZrlHTtqHRuY3k3P1QdZwG/I9K4RMxvRp3lk3bcRH0mk6e7RPopsP074pW6rw6qOQHT7RT4aNUeisdmnwIE1YxWKj0yU5/ZwV4UIQwEAQBAEAQySho8rWHDjYpH7YZnsGfQTrf9lQ7RjXf3Tihf7NkTs9uSqRpVScrVzyne+VzvGSVeMSzUQoXrdyqWlsahAEBbnlbDE6R5yAHj6lhVREuZRFctkO2bo6rJqdskV0ga57QRnCTln3qrdtRuiN6lu3ZK3zf09TAdojrXuLnXqAk7yYHfmUVa5FW6tJSUNksjjFuWiqrobfVVjrvA9tPC+UtEBGtqgnL23UiVaOW2ELRqiXxGj0Zf8A2tu+v9wrpU+7U5UvvEJT0nwuqMHVMTMs3SRb/lhRaNqumREJVa5GQqqkZWC2x1V0pbRBKIpaku57m57mkkkdyu5ZWU0d7XKOKJ9TJa9jtP1cVXxnD/RPrUT2qz9nUl+yX/v6ep7+riq+M4f6J9ae1Wfs6mfZL/39PU0OJcPS4fkpmTVDJ+XDiC1hbq6uXX1qXS1SVCLZLWIdVSLTql1vc0qlEQIAgBQG8sF2NvpJItYjWlLvIB+Ci1EO8cik2mn3bVT4mkc0te5p3g5FSkIapZbHiGAgKZHtjaXOOQCwq4Uups1MS2Q1FZM6YOJ2NAOTehRnOVykpjUah9IUXuOD5tvoXm3aqelTQjG4aUrhSV9VTNtlK4QzPjDjI7aGuIz8into2q1FvqQHVqo5Utoa646UbhW0FTSPtlK1s8T4i4SOzAcCM/Ktko2ot7mq1qqlrGl0ZjLGtu+v9wrep92pzpfeISlpOnNPg6rlDcyHx5D6wUSidgmRfmS61uOFU+RC9ivM1nvkF2Yxs8sOsdV5IBzaW+gqfK3eoqLxK+Jd0qKnA7UaXrlu/RVJ/UcovY28yX213I7bR/iioxTQVVRU00UDoJhGBG4kHmg57e1R54kiVEuSoJd4l7Gm0qe6bZ8iX0sVlsruv8vyVe1tWef4OFVsU4QBADuQF6nppJmFzAcgclq5yN1OjWK5Mi7d4TT3euhIy1Kh4y+sclrC7FG1fghmZuGVzfipiLocjxz2sGs47B5UVbGURVNdUSuldmdw3BR3OuSGojTGlHMd2FaWOh9JUXuOD5tvoXnHaqekTQ+db6P88uX0uX75V5H3G/JPsUUnvHfNfua8hbGpv9Hs0VNjO2vmeGNL3MBcchmWkAeNR6lFWJbEilVElS5JeluoijwbNFI8NfNNG2NpO1xDgTl3AqBSpeRFQn1WUakGqzKsICYNCP8Ao1y+lD7jVArO+n94ljR9xS7pU902z5EvpYpuyu6/y/JB2tqzz/BwqtinCAIAgO5wNahV2iWZzc86hwH/ABaqmvmVkiInIuNnwo6JVXmajH1IabEs7wOZUMbKPFkfKPKpOz34oETll+SLtCPBUKvPP8HOOcGjMqaQkQw5nmR2Z3cAuLludmpYskLSxuWpR+zd2FYQyfR9F7jg+bb6F5t2qnpk0Pni+j/O7l9Ll++VfR9xvyT7FBL7x3zX7mvIWTVFKHBYNj2onnnLTUTyy6o1W8pIXao6BnuC0womiG2JV1UxyEMngWATBoR/0a5fSh9xqgVnfT+8Sxo+4pd0qe6bZ8iX0sU3ZXdf5fkg7W1Z5/g4VWxThAEAKAmDBVIaPDNExwye9pld9YkjyEBeZrpMc7l8voenoY93A1F+f1NPpNt/LWyG4NHOpXar8veOyHkOXjUrZkuF6sXiRtpxYo0enAi95LlcrmUqZFohaWNyhwWDJalHMd2LFjNz6LotlFB8230LzLtVPUJoRjcdGt1q7hVVDKukDZpnyAHWzAc4no61ZMrWI1EtoVr6F7nKtzGOiy7/AA2i871LPbmclNewP5lJ0VXf4bRed6lha5nJTPYX8yk6Kbwf99Red6ljtrORnsL+ZSdE94+HUPnepY7YzkpnsTuZT+qW8fD6HzvUsdsZyM9jdzO60d4Zq8MUFXT1k0MrpphI0xZ5AaoHHsUaeVJXXQlQRLG2ymo0qe6bZ8iX0sVlsruv8vyVm1tWef4OFVsU4QBAZlnoHXS6U1E3PKZ+TsuDRtd5AVzmkSKNz14HWGLeyNZzJuY0NYGtGTQMgBwXlLquZ6y1si3W00VZSS007daKVpY4dRWzXKxyOTVDD2I9qtdopBt2t81suE9FUe3idlrZZaw4HvC9NFIkjEenE8vLGsT1Y7gYJC3NCgha2Ni3I3WaR0hYMnfw6UJYoWR/oZh1Ghufso7cvqKsXZyKt8XT1LRu0VRLYevoenSpKP4Iz7YfyLX2d4unqbe0vD19Dw6V5R/A2fbD+RY9n+Lp6mfaPh6+hSdLMnxGz7YfyJ7P8XT1M+0PD19Dw6W5B/AmfbD+RY7An7unqZ9oeHqUnS7L8Qs+2H+2sdh8XT1M9v8AD1PDpel+IWfbT/bWOw+Lp6jt3h6lP64JRusDPtp/tp2LxdPUz23w9TAv+JZsS+xZp6BtGYWuAYJuU1tbLfzRluVnRUywNW66lVXVKTuSyaGoU0ghAEBIWjW0cnFLdZ286XOODMeDxPedncqXac93JEnDNfmXey4LIsq8ck+R3aqi3BQHH6QMPG5UgrqRmdXTN5zQNsjN+XaN471YUFTu3YHaL9yur6beNxt1T7EVkZ7leWKJFKCFgyUELWxsUELBkoIWpsWyFhTNyghamxQQsWMlBC1NkUocFg2Nlb6ANymmHO8Fp4dZUiKK36nEaWb/AJabFSCMEAQG0w5Zpb5cmUzNZsLedNIPBb6zwUepqEgjxLrwJFNTunkwppxJkp4I6eGOGFoZGxoa1o3ABeZc5XLddT1DWo1ERNC6sGwQHhAPBARtjrChpnPulti/YOzdPE0e0PFwA4dPQrmhrMSbuTXgUldR4F3kaZcThnBWZWIWyFgyUELVUNihwWDJQQtTYtkLFjKKUELU2KCFhTJn0VHllLKNvgt6OsrtHHxU4yS8EM9dyOeIAgMq126qutayko2a8jtpJ3NHSegLnLK2JuJx0iifK7CwmDD9lp7JQNpoAHPO2WQja93T2dAXm6id078Tv8PTU9O2BmFDZrgSAgCAIDwgEZHcgI/xbgfWe+tsjBmc3SUo2Z9bPV4lbUu0Lfol+v8AJT1Wz7rji+n8EfSxuje5kjS17Tk5rhkQegq2yVLoVWaLZS0QsAoIWtjYoIWDKFBC1Ni2QsGbmZS0uWUkg28AurI+KnJ8nBDMXU4niAIDaWGw1t8n1KVmrC05STvHNb6z1LhUVLIEu7XkSKemknWzdOZK1hslJZaQQ0rc3nIySuHOeevq6l56eofO7E49FT07IG4WmzXAkBAEAQBAEAQGkv2Gbde2l1TFqVAGTZ49ju/p71IgqpIe7pyI09JHNm5M+ZHt5wPdreXPgj9mwjwofbDtbv8AFmreKvik1yUp5aCaPNM0OWkaWPcx4LXt2FrhkR2hS8lS5ELZCwZKHBYMopfp4AOe/fwC3azipo9/BDJXQ5DNAZlutVfdH6tBSyTDi4DJo7XHYuUk8cSXe6x1ihkl7iXO2sej9kZbNeJeVO/kIzk3vO892Sq59pquUSW+KlrBstEzlW/wQ7engip4mxQxtjjaMmsaMgAqpzlct1LZrUalkQuLBsEAQBAEAQBAEAQHhGaAw6+1UFxbq11JDON3PYCR3royWSPurY5vijk76XObuOAbGY3vhbUQdTJiR52als2hNfPMhv2fBbK6eZxN2sNLb5HclLO/V3coWn0AKzp5lk1QramBsaZKpr6WBs0oY4uAPQpb3KiXIbGI5bHZ2bB1uqw1081Uc+Ae0D7qrJq+Ri2RELSHZ8Tkuqr/AHyOnosJWOjIcyhbI8eFM4yHy7FXvrp36u+mRPjoaePNG/XM3TGNY0NaAGjcBsAUVc9SXoVoAgCAIAgCA//Z " width="100px" alt="Meme Preview">
+            <div class="top-text" id="topText"></div>
+            <div class="bottom-text" id="bottomText"></div>
+        </div>
+        <div class="buttons-container" id="buttonsContainer" style="display: none;">
+            <button id="saveButton">Save</button>
+            <button id="cancelButton">Cancel</button>
+        </div>
+        <div class="saved-meme" id="savedMemeContainer" style="display: none;">
+            <h2>Saved Meme</h2>
+            <div class="meme-preview"> <!-- Wrap in a meme-preview div -->
+                <img id="savedMemeImg" src="#" alt="Saved Meme">
+                <div id="savedTopText" class="top-text"></div>
+                <div id="savedBottomText" class="bottom-text"></div>
+            </div>
+        </div>
+        <form class="form" id="memeForm">
+            <label for="imageInput">Upload Image:</label>
+            <input type="file" id="imageInput" accept="image/*">
+            <label for="topTextInput">Top Text:</label>
+            <input type="text" id="topTextInput">
+            <label for="topFontSelect">Top Text Font:</label>
+            <select id="topFontSelect">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+            <label for="topTextColor">Top Text Color:</label>
+            <input type="color" id="topTextColor" value="#ffffff">
+            <label for="bottomTextInput">Bottom Text:</label>
+            <input type="text" id="bottomTextInput">
+            <label for="bottomFontSelect">Bottom Text Font:</label>
+            <select id="bottomFontSelect">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+            <label for="bottomTextColor">Bottom Text Color:</label>
+            <input type="color" id="bottomTextColor" value="#ffffff">
+            <button type="submit">Generate Meme</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('memeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const imageInput = document.getElementById('imageInput');
+            const topTextInput = document.getElementById('topTextInput').value;
+            const bottomTextInput = document.getElementById('bottomTextInput').value;
+            const topFontSelect = document.getElementById('topFontSelect').value;
+            const topTextColor = document.getElementById('topTextColor').value;
+            const bottomFontSelect = document.getElementById('bottomFontSelect').value;
+            const bottomTextColor = document.getElementById('bottomTextColor').value;
+            const memeImg = document.getElementById('memeImg');
+            const topText = document.getElementById('topText');
+            const bottomText = document.getElementById('bottomText');
+            const buttonsContainer = document.getElementById('buttonsContainer');
+            const savedMemeContainer = document.getElementById('savedMemeContainer');
+            const savedTopText = document.getElementById('savedTopText');
+            const savedBottomText = document.getElementById('savedBottomText');
+
+            if (!imageInput.files || imageInput.files.length === 0) {
+                alert('Please select an image.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                memeImg.src = e.target.result;
+                topText.textContent = topTextInput;
+                topText.style.fontFamily = topFontSelect;
+                topText.style.color = topTextColor;
+                bottomText.textContent = bottomTextInput;
+                bottomText.style.fontFamily = bottomFontSelect;
+                bottomText.style.color = bottomTextColor;
+                buttonsContainer.style.display = 'flex'; 
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('memeForm').reset();
+            document.getElementById('memePreview').style.display = 'block'; 
+            document.getElementById('buttonsContainer').style.display = 'none'; 
+            document.getElementById('savedMemeContainer').style.display = 'none'; 
+        });
+
+        document.getElementById('saveButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            const savedMemeImg = document.getElementById('savedMemeImg');
+            savedMemeImg.src = document.getElementById('memeImg').src;
+            const savedTopText = document.getElementById('savedTopText');
+            const savedBottomText = document.getElementById('savedBottomText');
+            savedTopText.textContent = document.getElementById('topTextInput').value;
+            savedTopText.style.color = document.getElementById('topTextColor').value;
+            savedTopText.style.fontFamily = document.getElementById('topFontSelect').value;
+            savedBottomText.textContent = document.getElementById('bottomTextInput').value;
+            savedBottomText.style.color = document.getElementById('bottomTextColor').value;
+            savedBottomText.style.fontFamily = document.getElementById('bottomFontSelect').value;
+            document.getElementById('memePreview').style.display = 'none'; 
+            document.getElementById('buttonsContainer').style.display = 'none'; 
+            document.getElementById('savedMemeContainer').style.display = 'block'; 
+        });
+        //fedback
+        let hasCreatedMeme = false;
+
+// Function to show feedback popup
+function showFeedbackPopup() {
+    document.getElementById('feedbackPopup').style.display = 'block';
+}
+
+// Function to hide feedback popup
+function hideFeedbackPopup() {
+    document.getElementById('feedbackPopup').style.display = 'none';
+}
+
+// Event listener for submit feedback button
+document.getElementById('submitFeedbackBtn').addEventListener('click', function() {
+    // Here you can handle submitting feedback and rating
+    // For now, let's just hide the popup
+    hideFeedbackPopup();
+});
+
+// Event listener for cancel feedback button
+document.getElementById('cancelFeedbackBtn').addEventListener('click', function() {
+    // Hide the feedback popup
+    hideFeedbackPopup();
+});
+
+// Event listener for form submission (meme creation)
+document.getElementById('memeForm').addEventListener('submit', function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+    
+    // Check if the user has already created a meme
+    if (!hasCreatedMeme) {
+        // If not, set hasCreatedMeme to true and show the feedback popup
+        hasCreatedMeme = true;
+        showFeedbackPopup();
+    }
+
+    // Continue with meme generation logic
+    // (Your existing meme generation code goes here)
+});
+    </script>
+</body>
+</html>
