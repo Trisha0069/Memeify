@@ -316,19 +316,21 @@
   background: white;
   color: black;
 }
- @media screen and (max-width: 768px) {
-            /* Adjust video and feedbacks layout for smaller screens */
+          @media screen and (max-width: 768px) {
             .novideo video {
                 max-width: 100%;
                 height: auto;
             }
             .card {
-                width: calc(50% - 20px); /* Adjust card width for better layout */
+                width: calc(50% - 20px);
             }
         }
         @media screen and (max-width: 480px) {
             .card {
-                width: calc(100% - 20px); /* Adjust card width for better layout */
+                width: calc(100% - 20px);
+            }
+            .card-content {
+                max-width: calc(100% - 40px); /* Adjust max-width based on padding */
             }
         }
     </style>
