@@ -345,7 +345,25 @@
                 font-size: 20px;
             }
         }
-
+        @media screen and (max-width: 768px) {
+            /* Adjust video and feedbacks layout for smaller screens */
+            .novideo {
+                width: 100%;
+                overflow-x: auto;
+                padding: 20px;
+            }
+            .novideo video {
+                width: 100%;
+                height: auto;
+            }
+            .reveiws {
+                flex-wrap: wrap;
+            }
+            .card {
+                width: calc(50% - 20px); /* Adjust card width for better layout */
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <script>
