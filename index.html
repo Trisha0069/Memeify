@@ -359,6 +359,25 @@ nav .menu{
   background: white;
   color: black;
 }
+/* responsiveness */
+@media only screen and (max-width: 768px) {
+            /* Adjustments for smaller screens */
+            .card {
+                width: 150px; /* Decrease card width */
+                height: 200px; /* Decrease card height */
+            }
+            .h1 {
+                font-size: large; /* Decrease font size for heading */
+            }
+            .reveiws {
+                flex-direction: column; /* Stack reviews vertically */
+            }
+            .card img {
+                width: 60px; /* Decrease image size */
+                height: 60px; /* Decrease image size */
+                border-radius: 100%; /* Make image circular */
+            }
+        }
 
     </style>
 </head>
@@ -375,20 +394,7 @@ nav .menu{
     }
 </script>
 <body>
-    <nav>
-        <div class="menu">
-          <div class="logo">
-            <a href="#">CodingLab</a>
-          </div>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Feedback</a></li>
-          </ul>
-        </div>
-      </nav>
+
     <div class="img"></div>
     <div class="center">
       <div class="title">Create amazing meme templates</div>
