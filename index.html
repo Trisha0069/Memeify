@@ -316,52 +316,19 @@
   background: white;
   color: black;
 }
-@media screen and (max-width: 1024px) {
-            .container {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 28px;
-            }
-
-            .footer {
-                padding: 10px; /* Adjusted padding */
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .footer {
-                padding: 5px; /* Adjusted padding */
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .header h1 {
-                font-size: 20px;
-            }
-        }
-        @media screen and (max-width: 768px) {
+ @media screen and (max-width: 768px) {
             /* Adjust video and feedbacks layout for smaller screens */
-            .novideo {
-                width: 100%;
-                overflow-x: auto;
-                padding: 20px;
-            }
             .novideo video {
-                width: 100%;
+                max-width: 100%;
                 height: auto;
-            }
-            .reveiws {
-                flex-wrap: wrap;
             }
             .card {
                 width: calc(50% - 20px); /* Adjust card width for better layout */
-                margin: 10px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .card {
+                width: calc(100% - 20px); /* Adjust card width for better layout */
             }
         }
     </style>
