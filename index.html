@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memeify</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&family=Teko:wght@300..700&display=swap');
+
         main {
             display: flex;
             justify-content: center;
@@ -17,8 +19,9 @@
             height: 100vh;
             overflow: auto;
         }
+
         .card {
-            width: calc(33.33% - 20px);
+            width: 200px;
             left: 10%;
             right: 10%;
             font-style: italic;
@@ -32,13 +35,16 @@
             box-shadow: 1px 1px 5px 0px rgba(82, 82, 82, 0.75);
             transition: all 150ms ease-in-out;
         }
+
         .card:hover {
             box-shadow: 3px 3px 15px 0px rgba(82, 82, 82, 0.85);
         }
+
         .card:active {
             background-color: #faeeee;
             box-shadow: inset 0 0 10px rgba(82, 82, 82, 0.85);
         }
+
         body {
             display: flex;
             background-color: white;
@@ -48,12 +54,14 @@
             justify-content: center;
             margin: 0;
         }
+
         .start {
             position: absolute;
             top: 10px;
             right: 10px;
 
         }
+
         .startnow,
         .startnow1 {
             background-color: rgb(248, 30, 66);
@@ -63,6 +71,7 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+
         .h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -71,6 +80,7 @@
             font-family: "Teko", sans-serif;
             font-size: xx-large;
         }
+
         .design {
             color: wheat;
             padding: 10px 20px;
@@ -80,29 +90,36 @@
             animation: pulse 1s infinite;
             border-radius: 5px;
         }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.1);
             }
+
             100% {
                 transform: scale(1);
             }
         }
+
         .design:hover {
             animation: pulse 0.5s;
             border-radius: 5px;
         }
+
         .image {
             margin-top: px;
 
         }
+
         .image button {
             border: none;
             cursor: pointer;
         }
+
         .image img {
             margin: 2px;
             padding: auto;
@@ -112,6 +129,7 @@
 
             cursor: pointer;
         }
+
         .novideo {
             margin: 0 auto;
             text-align: center;
@@ -122,27 +140,33 @@
             font-family: "Teko", sans-serif;
             font-size: x-large
         }
+
         .novideo h2 {
             margin-top: 0;
         }
+
         .novideo img {
             display: block;
             margin: 20px auto;
 
         }
+
         .novideo .p {
             text-align: center;
 
         }
+
         .image3 {
             text-align: center;
             color: rgb(50, 43, 43);
             font-family: "Teko", sans-serif;
             font-size: x-large
         }
+
         .image3 a {
             text-decoration: none;
         }
+
         .multipleimages .img1 {
             margin-top: 0px;
             text-align: center;
@@ -152,18 +176,21 @@
             border-width: 12px;
             border-radius: 5px;
         }
+
         .reveiws {
             background-color: white;
             display: flex;
             width: 100vw;
             margin: 1px;
         }
+
         .image {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
+
         .image img {
             width: 200px;
             /* Adjust image width as needed */
@@ -174,13 +201,16 @@
             transition: filter 0.5s ease;
             /* Add transition for smooth effect */
         }
+
         .image img:hover {
             filter: none;
             /* Remove blur effect on hover */
         }
+
         .hidden {
             display: none;
         }
+
         .viewall {
             margin-top: 40px;
             width: 12%;
@@ -190,13 +220,16 @@
             position: relative;
             border-radius: 5px;
         }
+
         .viewall:hover {
             background-color: #e62a95;
         }
+
         a {
             text-decoration: none;
             color: white;
         }
+
         .top-header.sticky {
             background-color: white;
             position: fixed;
@@ -204,13 +237,16 @@
             width: 100%;
             z-index: 1000;
         }
+
         body {
             margin-top: 80px;
         }
+
         a .view1,
         .view2 {
             color: rgb(248, 30, 66);
         }
+
         .popup {
             display: none;
             position: fixed;
@@ -224,6 +260,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .popup-content {
             background-color: white;
             width: 300px;
@@ -232,6 +269,7 @@
             text-align: center;
             position: relative;
         }
+
         .close {
             position: absolute;
             top: 10px;
@@ -240,95 +278,127 @@
             font-size: 20px;
             color: #888;
         }
+
         /* nav bar */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins',sans-serif;
-}
-::selection{
-  color: #000;
-  background: #fff;
-}
 
-.img{
-  background: url('https://img.freepik.com/free-vector/flat-world-emoji-day-background-with-emoticons_23-2149457926.jpg?size=626&ext=jpg&uid=R139049060&ga=GA1.1.1429294762.1706445347&semt=ais')no-repeat;
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-.img::before{
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-}
-.center{
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  padding: 0 20px;
-  text-align: center;
-}
-.center .title{
-  color: #fff;
-  font-size: 55px;
-  font-weight: 600;
-}
-.center .sub_title{
-  color: #fff;
-  font-size: 52px;
-  font-weight: 600;
-}
-.center .btns{
-  margin-top: 20px;
-}
-.center .btns button{
-  height: 55px;
-  width: 170px;
-  border-radius: 5px;
-  border: none;
-  margin: 0 10px;
-  border: 2px solid white;
-  font-size: 20px;
-  font-weight: 500;
-  padding: 0 10px;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s ease;
-}
-.center .btns button:first-child{
-  color: #fff;
-  background: none;
-}
-.btns button:first-child:hover{
-  background: white;
-  color: black;
-}
-.center .btns button:last-child{
-  background: white;
-  color: black;
-}
-         @media screen and (max-width: 768px) {
-            .novideo video {
-                max-width: 100%;
-                height: auto;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        ::selection {
+            color: #000;
+            background: #fff;
+        }
+
+        .img {
+            background: url('https://img.freepik.com/free-vector/flat-world-emoji-day-background-with-emoticons_23-2149457926.jpg?size=626&ext=jpg&uid=R139049060&ga=GA1.1.1429294762.1706445347&semt=ais')no-repeat;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .img::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .center {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .center .title {
+            color: #fff;
+            font-size: 55px;
+            font-weight: 600;
+        }
+
+        .center .sub_title {
+            color: #fff;
+            font-size: 52px;
+            font-weight: 600;
+        }
+
+        .center .btns {
+            margin-top: 20px;
+        }
+        .title{
+            margin-top:  120px;
+        }
+
+        .center .btns button {
+            height: 55px;
+            width: 170px;
+            border-radius: 5px;
+            border: none;
+            margin: 0 10px;
+            border: 2px solid white;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 0 10px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .center .btns button:first-child {
+            color: #fff;
+            background: none;
+        }
+
+        .btns button:first-child:hover {
+            background: white;
+            color: black;
+        }
+
+        .center .btns button:last-child {
+            background: white;
+            color: black;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 10px;
             }
-            .card {
-                width: calc(50% - 20px);
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .footer {
+                padding: 10px;
+                /* Adjusted padding */
             }
         }
+
         @media screen and (max-width: 768px) {
-            .card {
-                width: calc(100% - 20px);
-                padding: 10px;
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .footer {
+                padding: 5px;
+                /* Adjusted padding */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
             }
         }
     </style>
@@ -344,13 +414,15 @@
         var popup = document.getElementById("popup");
         popup.style.display = "none";
     }
+
 </script>
+
 <body>
 
     <div class="img"></div>
     <div class="center">
-      <div class="title">Create amazing meme templates</div>
-      <div class="sub_title">by editing Only</div>
+        <div class="title">Create amazing meme templates</div>
+        <div class="sub_title">by editing Only</div>
     </div>
     <div class="top-header sticky">
         <div class="logosec">
@@ -380,22 +452,22 @@
     </div>
     <button class="viewall"><a class="view1" href="memegenerator.html">View All</a></button>
     <div class="novideo" style="width: 100vw;">
-        <h2></h2> <video
-            src="you laugh, you restart.mp4" width="700px"
-            height="300px" autoplay muted loop></video>
+        <h2></h2> <video src="you laugh, you restart.mp4" width="700px" height="300px" autoplay muted loop></video>
     </div>
     </div>
     <div class="image3">
         <h1>Browse and Edit Your Favorite Meme Templates</h1>
-        <p>A wide range of <a class="view2" href="memegenerator.html"> meme templates</a> </a>is presented in the form of
+        <p>A wide range of <a class="view2" href="memegenerator.html"> meme templates</a> </a>is presented in the form
+            of
             customizable designs
             on our platform. You can browse through
             our vast gallery of memes and select a design that you are looking for without any restriction.</p>
     </div>
     <div class="multipleimages">
-        <button class="img1"><a href="memegenerator.html"><img src="https://smallseotools.com/designstudio/images/meme/1.png" alt=""></a></button>
+        <button class="img1"><a href="memegenerator.html"><img
+                    src="https://smallseotools.com/designstudio/images/meme/1.png" alt=""></a></button>
     </div>
-    <h3 style="color: black; font-size:x-large; padding: 12px;;" ><b>OUR COUSTOMERS LOVE WHAT WE DO</b></h3>
+    <h3 style="color: black; font-size:x-large; padding: 12px;;"><b>OUR COUSTOMERS LOVE WHAT WE DO</b></h3>
     <div class="reveiws">
         <div class="card"><br> <img
                 src="data:image/png;base64,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"
@@ -421,13 +493,14 @@
     <div id="popup" class="popup">
         <div class="popup-content">
             <span><b>You need to sign up
-                 if you're 
-                 &nbsp; new here.</b></span>
+                    if you're
+                    &nbsp; new here.</b></span>
             <span class="close" onclick="closePopup()">&#10006;</span>
         </div>
     </div>
-      <footer>
+    <footer>
         <p style="padding: 2px;;">&copy; 2024 Your Company. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
