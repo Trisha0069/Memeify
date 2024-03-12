@@ -424,7 +424,17 @@
                 height: auto; /* Make video responsive */
             }
         }
+         @media screen and (max-width: 768px) {
+            .card {
+                width: calc(50% - 20px);
+            }
+        }
 
+        @media screen and (max-width: 480px) {
+            .card {
+                width: calc(100% - 20px);
+            }
+        }
         @media screen and (max-width: 480px) {
             .center .title {
                 font-size: 24px; /* Further reduced font size for extra small screens */
