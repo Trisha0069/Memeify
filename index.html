@@ -368,51 +368,79 @@
             background: white;
             color: black;
         }
-@media screen and (max-width: 768px) {
-    .title {
-        font-size: 36px;
-    }
-    .sub_title {
-        font-size: 32px;
-    }
-    .btns button {
-        height: 45px;
-        width: 150px;
-        font-size: 18px;
-    }
-    .center {
-        top: 50%;
-    }
-}
 
-@media screen and (max-width: 480px) {
-    .title {
-        font-size: 28px;
-    }
-    .sub_title {
-        font-size: 24px;
-    }
-    .btns button {
-        height: 40px;
-        width: 120px;
-        font-size: 16px;
-    }
-    .center {
-        top: 45%;
-    }
-    .logosec img {
-        width: 200px;
-        height: 64px;
-    }
-    .start {
-        top: 5px;
-        right: 5px;
-    }
-    .novideo video {
-        width: 90%;
-        height: auto;
-    }
-}
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .footer {
+                padding: 10px;
+                /* Adjusted padding */
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .footer {
+                padding: 5px;
+                /* Adjusted padding */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            .reveiws {
+                display: block;
+            }
+        }
+        /*  */
+        @media screen and (max-width: 768px) {
+            .center .title {
+                font-size: 36px; /* Adjusted font size for smaller screens */
+            }
+            .center .sub_title {
+                font-size: 32px; /* Adjusted font size for smaller screens */
+            }
+            .center .btns button {
+                height: 45px; /* Adjusted button height for smaller screens */
+                width: 150px; /* Adjusted button width for smaller screens */
+                font-size: 18px; /* Adjusted font size for smaller screens */
+            }
+            .h1 {
+                padding: 20px; /* Increased padding for smaller screens */
+            }
+            .novideo video {
+                width: 100%; /* Make video responsive */
+                height: auto; /* Make video responsive */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .center .title {
+                font-size: 24px; /* Further reduced font size for extra small screens */
+            }
+            .center .sub_title {
+                font-size: 20px; /* Further reduced font size for extra small screens */
+            }
+            .center .btns button {
+                height: 40px; /* Further reduced button height for extra small screens */
+                width: 130px; /* Further reduced button width for extra small screens */
+                font-size: 16px; /* Further reduced font size for extra small screens */
+            }
+            .h1 {
+                padding: 10px; /* Further increased padding for extra small screens */
+            }
+        }
     </style>
 </head>
 <script>
